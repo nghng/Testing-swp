@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customer/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/default_marketing.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/add_post.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/marketing/post_list.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common/profile.css">
         <script src="https://kit.fontawesome.com/12bcef49b0.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -39,7 +40,7 @@
 
         <section class="main">
             <!-- RIGHT CONTENT -->
-            <a href="addblog" class="addlink">Add blog</a>
+            <a href="addblog" class="addlink_ver2">Add blog</a>
 
             <aside class="right">
                 <!--Starting of the filter-->
@@ -50,7 +51,7 @@
                             There are no records matching the search query <br>
                             ${requestScope.errorMessage}
                         </div>
-                        
+
                     </c:when>
                     <c:otherwise>
                         <div class="table__data">
@@ -98,14 +99,14 @@
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${p.status == true}">
-                                                        <a href="changeblogstatus?postID=${p.postID}&status=false" class="action">Hide</a>
+                                                        <a href="changeblogstatus?postID=${p.postID}&status=false" class="action status__inactive">Hide</a>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <a href="changeblogstatus?postID=${p.postID}&status=true" class="action">Show</a>
+                                                        <a href="changeblogstatus?postID=${p.postID}&status=true" class="action status__active ">Show</a>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
-                                            <td><a href="view?postID=${p.postID}" class="view">View</a></td>
+                                            <td><a href="view?postID=${p.postID}" class="view view__alink">View</a></td>
 
                                         </tr>
                                     </c:forEach>
@@ -122,78 +123,103 @@
 
                     <section class="option__box" <c:if test="${requestScope.posts.size() eq 0 or requestScope.posts == null}">
                              style="width: 260.4px;"
-                    </c:if>>
+                        </c:if>>
                         <div class="option__filter">
-                            <label for="from">From</label>
-                            <input type="date" name="from" id="from" value="${sessionScope.from}">
-                            <label for="to">To</label>
-                            <input type="date" name="to" id="to" value="${sessionScope.to}">
+                            <div class="form-group">
+                                <label  for="from">From</label>
+                                <input inline type="date" class="form-control" name="from" id="from" value="${sessionScope.from}">
+                            </div>
+                            <div class="form-group">
+                                <label for="to">To</label>
+                                <input type="date" name="to" class="form-control" id="to" value="${sessionScope.to}">
+                            </div>
+
+
                             <div class="option__searchbar">
-                                <input type="text" name="author"  placeholder="Author" value="${sessionScope.author}">
-                                <input type="text" name="search"  placeholder="Title" value="${sessionScope.title}">
-                                <label for="status">Status</label>
-                                <select name="status" id="status">
-                                    <option value="true" <c:if test="${sessionScope.status == 'true'}">selected</c:if>>Shown</option>
-                                    <option value="false" <c:if test="${sessionScope.status == 'false'}">selected</c:if>>Hide</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="">Author</label>
+                                    <input type="text" name="author" class="form-control"  value="${sessionScope.author}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Title</label>
+                                    <input type="text" name="search" class="form-control"  value="${sessionScope.title}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select name="status" class="form-control" id="status">
+                                        <option value="true" <c:if test="${sessionScope.status == 'true'}">selected</c:if>>Shown</option>
+                                        <option value="false" <c:if test="${sessionScope.status == 'false'}">selected</c:if>>Hide</option>
+                                        </select>
+                                    </div>
 
-                                    <label for="status">Feature</label>
-                                    <select name="isFeatured">
-                                        <option value="true" <c:if test="${sessionScope.isFeatured == 'true'}">selected</c:if>>Supported</option>
-                                    <option value="false" <c:if test="${sessionScope.isFeatured == 'false'}">selected</c:if>>No supported</option>
-                                    </select>
+                                    <div class="form-group">
+                                        <label for="status">Feature</label>
+                                        <select name="isFeatured" class="form-control">
+                                            <option value="true" <c:if test="${sessionScope.isFeatured == 'true'}">selected</c:if>>Supported</option>
+                                        <option value="false" <c:if test="${sessionScope.isFeatured == 'false'}">selected</c:if>>No supported</option>
+                                        </select>
+                                    </div>
 
-                                
-                                <div class="option__checkbox">
-                                    <h3>Category</h3>
-                                    <div class="option__options-value">
-                                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                                        <c:forEach items="${requestScope.categories}" var="cate">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="flush-headingOne">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        ${cate.categoryName}
-                                                    </button>
-                                                </h2>
-                                                <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                                    <div class="accordion-body">
-                                                        <c:forEach items="${cate.subcategories}" var="sc">
-                                                            <div class="subcategory">
-                                                                <c:set var="contains" value="false"/>
-                                                                <c:forEach items="${sessionScope.subcategory}" var="s">
-                                                                    <c:if test="${s eq sc.subcategoryID}">
-                                                                        <c:set var="contains" value="true"/>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                                <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"
-                                                                       <c:if test="${contains}">
-                                                                           checked
-                                                                       </c:if>
-                                                                       > <span>${sc.subcategoryName}</span>
-                                                            </div>
-                                                        </c:forEach></div>
+
+
+
+
+
+
+
+
+
+
+                                    <div class="option__checkbox">
+                                        <h3>Category</h3>
+                                        <div class="option__options-value">
+                                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                            <c:forEach items="${requestScope.categories}" var="cate">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${cate.categoryID}" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                            ${cate.categoryName}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapse${cate.categoryID}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            <c:forEach items="${cate.subcategories}" var="sc">
+                                                                <div class="subcategory">
+                                                                    <c:set var="contains" value="false"/>
+                                                                    <c:forEach items="${sessionScope.subcategory}" var="s">
+                                                                        <c:if test="${s eq sc.subcategoryID}">
+                                                                            <c:set var="contains" value="true"/>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                    <input type="checkbox" name="subcategory" value="${sc.subcategoryID}"
+                                                                           <c:if test="${contains}">
+                                                                               checked
+                                                                           </c:if>
+                                                                           > <span>${sc.subcategoryName}</span>
+                                                                </div>
+                                                            </c:forEach></div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="option__sort">
+                                    <select name="sort">
+                                        <option selected disabled>Sort by:</option>
+                                        <option value="DESC">Date added(newest)</option>
+                                        <option value="ASC">Date added(oldest)</option>
+                                    </select>
+                                </div>
+                                <div class="search__button" id="searchButton">
+                                    <button type="submit">Search</button>
+                                </div>
+                                <div class="contact__link">
+                                    <a href="#">Contact Information</a>
+                                </div>
+                                </form>
                             </div>
-                    
-                            <div class="option__sort">
-                                <select name="sort">
-                                    <option selected disabled>Sort by:</option>
-                                    <option value="DESC">Date added(newest)</option>
-                                    <option value="ASC">Date added(oldest)</option>
-                                </select>
-                            </div>
-                            <div class="search__button" id="searchButton">
-                                <button type="submit">Search</button>
-                            </div>
-                            <div class="contact__link">
-                                <a href="#">Contact Information</a>
-                            </div>
-                            </form>
-                        </div>
                     </section>
             </aside>
             <jsp:include page="${pageContext.request.contextPath}../../view/user_popup.jsp"/>
