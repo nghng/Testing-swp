@@ -472,11 +472,11 @@ public class BlogDBContext extends DBContext {
                 }
             }
             if (author.trim().length() > 0 && author != null) {
-                stm.setString(i,"%"+ author + "%");
+                stm.setString(i, "%" + author + "%");
                 i++;
             }
             if (title.length() > 0 && title != null) {
-                stm.setString(i, "%"+ title + "%");
+                stm.setString(i, "%" + title + "%");
                 i++;
             }
             if (status != null) {
@@ -500,8 +500,8 @@ public class BlogDBContext extends DBContext {
             }
 
             stm.setInt(i, pageindex);
-            stm.setInt(i+1, pagesize);
-            stm.setInt(i+2, pagesize);
+            stm.setInt(i + 1, pagesize);
+            stm.setInt(i + 2, pagesize);
             rs = stm.executeQuery();
             while (rs.next()) {
                 SubCategoryDBContext dbSubCate = new SubCategoryDBContext();

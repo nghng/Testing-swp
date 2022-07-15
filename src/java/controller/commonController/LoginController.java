@@ -64,7 +64,7 @@ public class LoginController extends HttpServlet {
             if (user.getAccount().getRole().getRoleID() == 5) {
                 response.sendRedirect("home");
             } else {
-                response.sendRedirect("home");
+                response.sendRedirect("dashboard");
             }
         }
     }

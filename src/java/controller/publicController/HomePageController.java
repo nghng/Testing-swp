@@ -46,24 +46,13 @@ public class HomePageController extends HttpServlet {
         request.setAttribute("sliders", sliders);
         request.setAttribute("posts", posts);
         request.setAttribute("courses", courses);
-        if(account == null){
+        if (account == null) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }else if(account.getRole().getRoleID()==5){
+        } else if (account.getRole().getRoleID() == 5) {
             request.getRequestDispatcher("view/customer/index.jsp").forward(request, response);
-            
-        }else if(account.getRole().getRoleID()==4){
-            request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);
-            
-        }else if(account.getRole().getRoleID()==3){
-            request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);
-            
-        }else if(account.getRole().getRoleID()==2){
-            request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);
-            
-        }else{
-            request.getRequestDispatcher("view/dashboard.jsp").forward(request, response);
+
         }
-        
+
     }
 
     /**

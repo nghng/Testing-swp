@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/css/marketing/post_list.css</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/src/java/dal/QuizHandleDBContext.java</file>
-            <file>file:/D:/Uni/Summer2022/swp/Students-Projects-Bank-20220509/03_QuizPractice/summer2022-se1617-g6-HungLN-HE161003%20-%20Merge/web/view/marketing/post_list.jsp</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/src/java/dal/AnswerDBContext.java</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/src/java/dal/AccountDBContext.java</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/test/dal/AccountDBContextTest.java</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/src/java/dal/BlogDBContext.java</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/src/java/controller/commonController/LoginController.java</file>
+            <file>file:/D:/Uni/Summer2022/swt/lAB4/Testing/src/java/controller/publicController/HomePageController.java</file>
         </group>
     </open-files>
 </project-private>
